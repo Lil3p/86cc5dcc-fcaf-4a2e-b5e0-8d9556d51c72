@@ -22,9 +22,25 @@ public static class SequenceHunter
     public static string FindLongestIncreasingSubsequence(string input)
     {
 
-        int[] numbers = input.Split(' ')
+        // Array to store integers from the input string 
+        int[] numbers;
+
+        // Parse the input string into an array of integers
+        // parsing will fail if the input string contains non integer elements       
+        try
+        {
+            numbers = input.Split(' ')
             .Select(int.Parse)
             .ToArray();
+        }
+
+        // Catching the specific format exception for parsing
+        catch (FormatException ex)
+        {
+            // Throw a more detailed exception if parsing fails
+            throw new ArgumentException("Input string should only contain integers separated by a single whitespace.", ex);
+
+        }
 
         int maxLength = 1;
         int currentLength = 1;

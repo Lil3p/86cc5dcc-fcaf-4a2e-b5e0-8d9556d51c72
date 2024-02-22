@@ -160,4 +160,45 @@ public class SequenceHunterTest
         Assert.Equal(expected, result);
     }
 
+
+
+    [Fact]
+    public void FindSequenceHunter_InvalidInput_ThrowsArgumentException()
+    {
+        // Arrange
+        string invalidInput = "1 two 3 4 5 6 7";
+
+        // Act & Assert
+        var ex = Assert.Throws<ArgumentException>(() => SequenceHunter.FindLongestIncreasingSubsequence(invalidInput));
+        Assert.Contains("Input string should only contain integers separated by a single whitespace", ex.Message);
+    }
+
+    [Fact]
+    public void FindSequenceHunter_SingleElement_ReturnsSameElement()
+    {
+        // Arrange
+        string input = "100";
+        string expected = "100";
+
+        // Act
+        string result = SequenceHunter.FindLongestIncreasingSubsequence(input);
+
+        // Assert
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    public void FindSequenceHunter_MultipleLongestSequences_ReturnsFirstSequence()
+    {
+        // Arrange
+        string input = "10 20 30 9 8 7 6 5 1 2 5 4 1 2 3";
+        string expected = "10 20 30";
+
+        // Act
+        string result = SequenceHunter.FindLongestIncreasingSubsequence(input);
+
+        // Assert
+        Assert.Equal(expected, result);
+    }
+
 }
