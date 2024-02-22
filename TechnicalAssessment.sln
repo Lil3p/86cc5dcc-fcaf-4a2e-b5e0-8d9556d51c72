@@ -5,7 +5,12 @@ VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LongestIncreasingSubsequence", "LongestIncreasingSubsequence\LongestIncreasingSubsequence.csproj", "{6443E938-9DA9-4305-A10F-05BC9C0596CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LongestIncreasingSubsequence.Test", "LongestIncreasingSubsequence.Test\LongestIncreasingSubsequence.Test.csproj", "{E7D5E562-48AE-401B-823A-84000A9D886E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LongestIncreasingSubsequence.Test", "LongestIncreasingSubsequence.Test\LongestIncreasingSubsequence.Test.csproj", "{E7D5E562-48AE-401B-823A-84000A9D886E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4DC86E51-39F7-4608-9FB8-ECABC11F5FA5}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
