@@ -1,0 +1,75 @@
+name: .NET Library CI
+
+# Defines when the workflow should run. This workflow triggers on push and pull request events to the main branch.
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# Defines the jobs to run. In this case, a single job named build-and-test.
+jobs:
+  build-and-test-package:
+    # Specifies the type of runner that the job will run on. A linux bassed runner might be faster and cheaper 
+    # ubuntu-latest
+    runs-on: windows-latest
+
+    steps:
+    # Checks out the repository so the job can access it.
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0 # Necessary for accurate version calculation if using Git history.
+
+    # Sets up a .NET environment
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    # Use PowerShell to calculates a dynamic version number to be used in the build and package steps.
+    - name: Calculate Version
+      run: |
+        echo "MAJOR_VERSION=1" | Out-File -Append -FilePath $Env:GITHUB_ENV
+        echo "MINOR_VERSION=0" | Out-File -Append -FilePath $Env:GITHUB_ENV
+        $VERSION_SUFFIX=$(Get-Date -Format "yyyyMMdd")+"-"+${Env:GITHUB_RUN_NUMBER}
+        echo "VERSION_SUFFIX=$VERSION_SUFFIX" | Out-File -Append -FilePath $Env:GITHUB_ENV
+        echo "Full version: $Env:MAJOR_VERSION.$Env:MINOR_VERSION.$VERSION_SUFFIX"
+      shell: pwsh
+
+    # Restores the dependencies and tools of a project.
+    - name: Restore dependencies
+      run: dotnet restore
+
+    # Compiles the project and its dependencies using the generated version number.
+    - name: Build
+      run: dotnet build --no-restore -c Release /p:VersionSuffix=${{ env.VERSION_SUFFIX }}
+
+    # Runs the unit tests with code coverage reporting. 
+   
+    - name: Test and produce coverage data
+      run: |
+        dotnet test --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=..\TestResults\coverage\ --verbosity normal
+                  
+    - name: Install ReportGenerator tool
+      run: dotnet tool install --global dotnet-reportgenerator-globaltool
+
+    - name: Generate coverage report
+      run: reportgenerator "-reports:TestResults\coverage\*.cobertura.xml" "-targetdir:TestResults\coverage\reports" -reporttypes:Html
+                 
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: TestResults\coverage\reports\
+
+        
+    # Packages the project into a NuGet package using the generated version number.
+    - name: Package
+      run: dotnet pack --no-restore --no-build -c Release -o ./artifacts /p:PackageVersion=${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.VERSION_SUFFIX }}
+
+
+    # Uploads the generated NuGet package as an artifact of the workflow run.
+    - uses: actions/upload-artifact@v3
+      with:
+        name: LongestIncreasingSubsequence-${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.VERSION_SUFFIX }}
+        path: ./artifacts/*.nupkg
