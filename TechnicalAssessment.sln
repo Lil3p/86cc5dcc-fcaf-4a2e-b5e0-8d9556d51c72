@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34601.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LongestIncreasingSubsequence", "LongestIncreasingSubsequence\LongestIncreasingSubsequence.csproj", "{6443E938-9DA9-4305-A10F-05BC9C0596CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LongestIncreasingSubsequence.Test", "LongestIncreasingSubsequence.Test\LongestIncreasingSubsequence.Test.csproj", "{E7D5E562-48AE-401B-823A-84000A9D886E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6443E938-9DA9-4305-A10F-05BC9C0596CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6443E938-9DA9-4305-A10F-05BC9C0596CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6443E938-9DA9-4305-A10F-05BC9C0596CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6443E938-9DA9-4305-A10F-05BC9C0596CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7D5E562-48AE-401B-823A-84000A9D886E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7D5E562-48AE-401B-823A-84000A9D886E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7D5E562-48AE-401B-823A-84000A9D886E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7D5E562-48AE-401B-823A-84000A9D886E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5F4A6392-24E7-4A3F-948B-4A33B932780B}
+	EndGlobalSection
+EndGlobal
